@@ -17,19 +17,34 @@ const products = [
 //   Combine product data with supplier data (e.g., supplier name and contact).
 //   Calculate the total value of inventory for each supplier (price * quantity).
 
-const filterProd=products.filter((el)=>el.quantity>0)
-// console.log(filterProd)  
+// const filterProd=products.filter((el)=>el.quantity>0)
+// // console.log(filterProd)  
 
-const groupedProducts=filterProd.reduce((acc,n)=>{
-    if(!acc[n.supplierId]){
-        acc[n.supplierId]=[]
-    }
-    acc[n.supplierId].push(n)
-    return acc
-},{})
-console.log(groupedProducts)
+// const groupedProducts=filterProd.reduce((acc,n)=>{
+//     if(!acc[n.supplierId]){
+//         acc[n.supplierId]=[]
+//     }
+//     acc[n.supplierId].push(n)
+//     return acc
+// },{})
+// console.log(groupedProducts)
 
 // const sortByProduct=groupedProducts.sort((a,b)=>a.price-b.price)
 // console.log(sortByProduct)
 
-const merging= [...suppliers,...groupedProducts]
+const filteredArr=products.filter(el=>el.quantity>0);
+// console.log(filteredArr)
+const group=filteredArr.reduce((acc,n)=>{
+  if(!acc[n.supplierId]){
+    acc[n.supplierId]={supplierId:n.supplierId,supplierName:suppliers[n.supplierId].name,contact:suppliers[n.supplierId].contact,products:[],totalInventoryValue:0}
+    acc[n.supplierId].products.push({name:n.name,price:n.price,quantity:n.quantity})
+    acc[n.supplierId].totalInventoryValue+=n.price*n.quantity
+    return acc
+  }
+},{})
+
+const finalOp=Object.values(group).map(el=>{
+  el.products.sort((a,b)=>a.price-b.price)
+  return el
+})
+console.log(finalOp)
