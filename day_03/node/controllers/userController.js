@@ -15,10 +15,12 @@ export const newUser= async(req,res)=>{
         res.status(401).json({message:"Error in creating user"})
     }
 }
-export const LogIn=async(req,res){
+export const LogIn=async(req,res)=>{
     try{
         if(!email && !password) res.status(404).json({message:"User not found"});
         const user=User.password.bcrypt.compare(password,hashPassword);
         res.status(201).json("User found")
+    }catch(error){
+        res.status(401).json({message:"Error in LogIn"})
     }
 }
