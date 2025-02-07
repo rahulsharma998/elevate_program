@@ -41,9 +41,9 @@ const mcqQuestions = [
 
 function App() {
  
-  const [question,setQuestion]=useState("");
+  // const [question,setQuestion]=useState("");
   const [answer,setAnswer]=useState("");
-  const [correctAnswer,setCorrectAnswer]=useState();
+  // const [correctAnswer,setCorrectAnswer]=useState();
   const [attempt,setAttempt]=useState(3);
   const [scores,setScores]=useState(0);
   const [rightAnswer,setRightAnswer]=useState(0);
@@ -53,7 +53,7 @@ function App() {
 
 
   function checkAnswer(){
-    if (answer===correctAnswer){
+    if (answer===mcqQuestions.correctAnswer){
       alert("Your Answer is correct")
       setScores(prev=>prev+1)
       setRightAnswer(prev=>prev+1)
